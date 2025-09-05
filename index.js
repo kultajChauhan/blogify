@@ -1,14 +1,27 @@
-const path=require('path')
-const express = require('express')
+const path = require("path");
+const express = require("express");
+const mongoose = require("mongoose");
 
-const app= express()
-const PORT=8000
+const userRouter = require("./Routes/user.route.js");
 
-app.set("view engine","ejs")
-app.set("Views",path.resolve('./Views'))
+const app = express();
+const PORT = 8000;
 
-app.get('/',(req,res)=>{
-    return res.render('home')
-})
+mongoose
+  .connect("mongodb://localhost:27017/blogify")
+  .then(() => console.log("database connected"));
 
-app.listen(PORT,()=>{console.log(`server is running ${PORT}`)})
+app.set("view engine", "ejs");
+app.set("Views", path.resolve("./Views"));
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use("/user", userRouter);
+
+app.get("/", (req, res) => {
+  return res.render("home");
+});
+
+app.listen(PORT, () => {
+  console.log(`server is running ${PORT}`);
+});
