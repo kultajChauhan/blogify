@@ -1,6 +1,7 @@
 const { error } = require('console');
 const {createHmac,randomBytes} = require('crypto')
 const mongoose = require("mongoose");
+const { createJwtToken } = require('../services/authentication');
 
 const userSchema = mongoose.Schema({
   fullName: {
@@ -33,7 +34,7 @@ userSchema.pre('save',function(next){
     next()
 })
 
-userSchema.statics.matchPassword= async function(email,password){
+userSchema.statics.matchPasswordAndCreatWebToken= async function(email,password){
 const user = await this.findOne({email})
 
 if(!user) throw new Error('User not found') 
@@ -45,9 +46,9 @@ if(!user) throw new Error('User not found')
 
   if(hashedPassword!=userProvidedhash) throw new Error('Incurrect password') 
 
-  return {...user,password:undefined,salt:undefined}
+  return createJwtToken(user)
 }
 
-const UserModel = mongoose.model("userSchema", userSchema);
+const UserModel = mongoose.model("user", userSchema);
 
 module.exports=UserModel
