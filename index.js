@@ -21,6 +21,7 @@ app.set("Views", path.resolve("./Views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(checkForAuthenticationCookie("token"))
+app.use(express.static(path.resolve('./public/uploads')))
 
 app.use("/user", userRouter);
 app.use('/blog',blogRouter)
