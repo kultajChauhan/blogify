@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
   email: { type: String, required: true,unique:true },
   salt: { type: String },
   password: { type: String, required: true },
-  profileImageUrl:{type:String,default:'../public/images/default.avif'},
+  profileImageUrl:{type:String,default:'/images/default.avif'},
   role: {
     type: String,
     enum: ["USER", "ADMIN"],

@@ -10,22 +10,28 @@
     <%- include('./Partials/nav.ejs') %>
         <h1>Home Page!</h1>
 
-        <div class="container mt-3">
-            <% blogs.forEach(blog=> { %>
-                <div class="card mt-3" style="width: 18rem;">
-                    <img src="<%=blog.coverImageUrl%>" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%=blog.title%>
-                        </h5>
-                        <p class="card-text">
-                            <%=blog.body%>
-                        </p>
-                        <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+        <div class="container mt-3 ">
+            <div class="row row-cols-4">
+                <% blogs.forEach(blog=> { %>
+                    <div class="col">
+                        <div class="card mt-3" >
+                            <img src="/uploads/<%=blog.coverImageUrl%>" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%=blog.title%>
+                                </h5>
+                                <p class="card-text">
+                                    <%=blog.body%>
+                                </p>
+                                <a href="/blog/<%= blog._id%>" class="btn btn-primary">View</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <% }) %>
+
+                    <% }) %>
+            </div>
         </div>
+
 
 
         <!-- <%= JSON.stringify(blogs) %> -->

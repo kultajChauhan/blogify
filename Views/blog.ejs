@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./Partials/head.ejs') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <%- include('./Partials/nav.ejs') %>
+
+        <!-- <%=JSON.stringify(blog)%> -->
+
+        <h1>Blog.ejs</h1>
+        <div class="container">
+            <h1>
+                <%= blog.title %>
+            </h1>
+            <img src="/uploads/<%= blog.coverImageUrl %>" alt="">
+            <p>
+                <%=blog.body%>
+            </p>
+
+            <% if (locals.user) { %>
+                <div class="mb-3">
+                    <h1>Comment</h1>
+
+                    <form action="/blog/comment/<%=blog._id%>" method="post">
+                        <input type="text" class="form-control" name="comment" placeholder="Inter Your Comment"
+                            aria-describedby="comment">
+                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                    </form>
+                </div>
+                <% } %>
+
+                    <!-- <%=JSON.stringify(comments)%> -->
+                    <div class="container mt-3">
+                        <% comments.forEach(comment=> { %>
+
+                            <img src="<%=comment.createdBy.profileImageUrl%>" width="70vw" alt="">
+                            <h5>
+                                <%= comment.createdBy.fullName %>
+                            </h5>
+                            <p>
+                                <%=comment.content%>
+                            </p>
+                            <hr>
+                            <% }) %>
+                    </div>
+        </div>
+
+        <%- include('./Partials/scripts.ejs') %>
+
+</body>
+
+</html>
