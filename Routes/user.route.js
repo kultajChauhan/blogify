@@ -27,14 +27,11 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
-  console.log({ email, password });
-
   try {
     const token = await UserModel.matchPasswordAndCreatWebToken(
       email,
       password
     );
-    console.log("token", token);
     return res.cookie("token", token).redirect("/");
   } catch (error) {
     return res.render("signin", { error: "Something went wrong!" });
